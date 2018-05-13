@@ -16,6 +16,10 @@ const Profile = () => (
     {({ data }) => {
       const { viewer } = data;
 
+      if (!viewer) {
+        return null;
+      }
+
       return (
         <div>
           {viewer.name} {viewer.login}
