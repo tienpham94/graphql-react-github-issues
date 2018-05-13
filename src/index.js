@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
+import { onError } from 'apollo-link-error';
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 import "./style.css";
@@ -10,6 +11,16 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
 const GITHUB_BASE_URL = "https://api.github.com/graphql";
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    // do something with graphql error
+  }
+
+  if (networkError) {
+    // do something with network error
+  }
+});
 
 const httpLink = new HttpLink({
   uri: GITHUB_BASE_URL,
