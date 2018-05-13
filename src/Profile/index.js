@@ -1,6 +1,6 @@
-import React from 'react';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import React from "react";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 
 const GET_CURRENT_USER = gql`
   {
@@ -13,7 +13,15 @@ const GET_CURRENT_USER = gql`
 
 const Profile = () => (
   <Query query={GET_CURRENT_USER}>
-    {() => <div>My Profile</div>}
+    {({ data }) => {
+      const { viewer } = data;
+
+      return (
+        <div>
+          {viewer.name} {viewer.login}
+        </div>
+      );
+    }}
   </Query>
 );
 
